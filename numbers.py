@@ -1,4 +1,4 @@
-import math
+import math  # sytanx for importing a module
 
 
 x = 10
