@@ -131,11 +131,94 @@ print(increment(5))
 # varable no of arggements, tuples
 
 
-def Multiple(*numbers):
+def Multiple(*numbers):  # number  is a tuple
     total = 1
     for x in numbers:
         total *= x
-    return total
+        return total
+
+
+#save_user(id=1, name="john", title="Snow")
 
 
 print(Multiple(2, 3, 4, 56, 7))
+
+
+# def save_user(**user):  # dictionary object
+# print(f"{user["id"]} {user["name"]}")
+
+
+# Fizz_Buzz algo
+
+def Fizz_Buzz(number):
+
+    if(number % 15 == 0):
+        return "Fizz_Buzz"
+    elif(number % 3 == 0):
+        return "Fizz"
+    elif(number % 5 == 0):
+        return "Buzz"
+    else:
+        return number
+
+
+print(Fizz_Buzz(30))
+
+
+# Lists
+letters = ["a", "b", "c"]
+matrix = [[0, 1], [2, 3], [4, 5], [6, 7]]  # matrix reprenstation
+zeros = [0]*5
+combine = zeros + letters
+print(combine)
+list1 = list(range(20))
+print(list1)
+
+numbers = list(range(20))
+print(numbers[::2])  # every alternate value
+print(numbers[::-1])  # reverse order print
+
+first, *others, last = numbers  # list unpacking
+print(first, last, others)
+
+# loop over list
+for index, number in enumerate(numbers):  # enumerate object and unpacking list
+    print(index, number)
+# Find index
+numbers.index(4)
+# if 100 in numbers:
+# print(numbers.index(100))
+
+# sorting list
+print("sorted ist")
+numbers.sort(reverse=True)
+print(numbers)
+print(sorted(numbers, reverse=True))
+
+items = [
+    ("Producte1", 10),
+    ("Producte2", 7),
+    ("Producte3", 5),
+    ("Producte4", 9)
+]
+
+
+def sort_item(item):
+    return item[1]
+
+
+items.sort(key=sort_item)
+print(items)
+# lambda expression
+items.sort(key=lambda item: item[1])
+print(items)
+
+# Map function
+itemPrices = list(map(lambda item: item[1], items))
+for price in itemPrices:
+    print(price)
+
+# filtering
+
+itemFilterd = list(filter(lambda item: item[1] >= 10, items))
+print(itemFilterd)
