@@ -1,6 +1,7 @@
 from collections import deque
 from array import array
 from sys import getsizeof
+from timeit import timeit
 
 
 print('Hello World')
@@ -358,8 +359,135 @@ print(*packedList)
 print("Get the most repetaed char in the following  string")
 sentence="This is  a  common interview question"
 countDict = {char: sentence.count(char) for char in sentence}
-sortedcountDict = sorted(countDict.items(), key=lambda kv:kv[1],reverse=True)
+sortedcountDict = sorted(countDict.items(),key=lambda kv:kv[1],reverse=True)
 print(sortedcountDict[0])
+
+
+#Exceptions
+
+try:
+    #file = open("type.py")
+    #using statement in c#
+    with open("type.py") as file:
+        print("file opened")
+        file.__exit__()
+    age=(int)(input("Age:"))
+    #xfactor=age/0 
+#catch in c#
+except (ValueError) as ex:
+    print("You did not enter valid value")
+    print(ex,type(ex))
+
+#finally block in c#
+finally:
+   # file.close()
+    print("done")
+
+
+def calculate_xfacotor(age):
+    if(age <= 0):
+        raise ValueError("Age cannot be less than 0")
+    return age/10
+
+
+try:
+    calculate_xfacotor(-1)
+except ValueError as ex:
+        pass
+
+
+
+#raise  exception on your own,raisign exception is costly,prefer not to raise exception in your own function
+code1 ="""def calculate_xfacotor(age):
+    if(age<=0):
+        raise ValueError("Age cannot be less than 0")
+    return age/10
+
+try:
+    calculate_xfacotor(-1)
+except ValueError as ex:
+        pass"""
+
+
+
+print("firstcode", timeit(code1, number=10000))
+
+
+code2= """def calculate_xfacotor(age):
+    if(age<=0):
+        return 0
+    return age/10
+
+try:
+    calculate_xfacotor(-1)
+except ValueError as ex:
+        pass"""
+
+timerequiredforexecution=timeit(code2,number=10000)
+print("secondecode",timerequiredforexecution)
+
+# classes-------------------------------------------------------#classes
+class Point:
+     
+        default_color="This is a class  level attribute"
+      #constructor ,self is reference to current point object
+        def __init__(self,x,y):
+            self.x=x
+            self.y=y
+         #instacne method     
+        def draw(self):
+            print(f"Point {self.x} ,{self.y}")
+        #class level methods
+        #@classmethod
+        #def zero(class):
+            #class(0,0)
+        
+        #overriding _str_ from base class,magic methods
+        def __str__(self):
+            return f"{self.x},{self.y}"
+        
+        def __eq__(self,other):
+            return self.x==other.x  and self.y==other.y
+        
+        def __gt__(self,other):
+            return self.x > other.y and self.y> other.y
+        def __lt__(self,other):
+            return self.x < other.y and self.y <  other.y
+
+        def __add__(self,other):
+            return Point(self.x+other.x,self.y+other.y)
+
+
+
+
+
+#print class level attributes
+print(Point.default_color)
+point1 = Point(10,12)
+point2=Point(1,2)
+point3 = point1.__add__(point2)
+print(point3)
+#point1.draw()
+
+
+
+#Custom collection in python
+
+#class TagCloud:
+
+        #def __init__(self):
+            #self.tags={}
+
+        #def add(self,tag):
+            #self.tags[tag]=
+
+
+
+
+
+
+
+
 
 
 
