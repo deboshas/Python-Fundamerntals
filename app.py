@@ -2,7 +2,7 @@ from collections import deque
 from array import array
 from sys import getsizeof
 from timeit import timeit
-
+from abc import ABC,abstractmethod
 
 print('Hello World')
 print('*' * 10)
@@ -472,22 +472,162 @@ print(point3)
 
 
 #Custom collection in python
+print("Custom collection")
+class TagCloud:
 
-#class TagCloud:
+      def __init__(self):
+          self._tags={} #making it private with a single underscore
+#Handling  case sensitivity       
+      def add(self,tag):
+          self._tags[tag.lower()] = self._tags.get(tag.lower(), 0)+1
 
-        #def __init__(self):
-            #self.tags={}
-
-        #def add(self,tag):
-            #self.tags[tag]=
-
-
-
-
-
-
+      def _getitem_(self,tag):
+          self._tags.get(self._tags[tag.lower()], 0)
+      
+      def _setitem_(self,tag,count):
+          self._tags[tag.lower()] = count
+      def _len_(self):
+           return len(self._tags)
+      def _iter_(self):
+          return iter(self._tags)
 
 
+
+cloud=TagCloud()
+cloud.add('Python')
+cloud.add('python')
+cloud.add('python')
+cloud.add('python')
+print(cloud._tags)
+
+
+#property
+class Product:
+    def _init_(self):
+        pass #just bypassing
+    #private method
+    def __get_price(self):
+        return self._price
+
+    def __set_price(self,price):
+        if price <0:
+            raise ValueError("Price cannot be negative")
+        self._price=price
+    
+    price = property(__get_price, __set_price)
+
+product=Product()
+product.price=10
+print(product.price)
+
+
+#Inheritance
+
+class Animal:
+     def __init__(self,age):
+         self.age=age
+
+     def eat(self):
+        print("eat")
+
+
+class Mamal(Animal):
+   
+     def _init_(self,age):
+         super().__init__(age) # call the  base class's  constructor
+         self.weight=2
+
+     def walk(self):
+        print("walk")
+
+class Fish(Animal):
+   
+     def __init__(self,age):
+         super().__init__(age)
+
+     def sweem(self):
+        print("sweem")
+
+fish=Fish(1)
+mamal = Mamal(2)
+print(fish.age)
+print(isinstance(fish,object))
+
+
+#Multiple inheritance
+
+class Person:
+
+    def greet(self):
+        print("Person greet")
+
+
+class Employee:
+    def greet(self):
+        print("Employee greet")
+
+class Manager(Person,Employee):
+    pass
+
+manager=Manager()
+print(manager.greet()) #get teh first base class's greet method
+
+
+#Custom Exception by inheriotaiong form base class
+
+class InValidOperationError(Exception):
+    pass
+
+
+#Abstract base class 
+class Stream(ABC):
+    @abstractmethod
+    def read(self):
+        pass
+
+
+class Filestream(Stream):
+     def read(self):
+         print("Inside Filestream")
+
+
+class NetworkStream(Stream):
+     def read(self):
+         print("Inside NetworkStream")
+
+
+class MemoryStream(Stream):
+     def read(self):
+         print("Inside MemoryStream")
+
+
+stream = Filestream()
+stream.read()
+
+
+#Ploymorphism ,by default python is polymorphsic ,becuase it is a dynamically typed language
+print("Polymorphism")
+def readStream(stream):
+     stream.read()
+
+
+filestream = Filestream()
+networkstream = NetworkStream()
+
+readStream(filestream)
+readStream(networkstream)
+
+
+#Extending built-in type
+class Text(str):
+    def __init__(self,text):
+        super().__init__()
+
+    def duplicate(self):
+        return self+self
+
+text=Text("Python")
+print(text.duplicate())
 
 
 
